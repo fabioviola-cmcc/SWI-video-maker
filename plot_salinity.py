@@ -130,6 +130,6 @@ if __name__ == "__main__":
     lx_file = sys.argv[2]
     branch_name = sys.argv[3]
     outdir = sys.argv[4]
-    
+
     # plot the nc file
     plot_salinity(salinity_file, lx_file, branch_name, outdir)

@@ -31,6 +31,7 @@ image_dir = sys.argv[1]
 vertical = int(sys.argv[2]) # 0 = horizontal, 1 = vertical
 overlay = sys.argv[3] 
 
+
 ######################################################
 #
 # process images
@@ -79,8 +80,9 @@ for d in range(0, 366):
         combined_img.paste(logo_img, (0,0), logo_img)
 
         # Save the combined image with a new filename
-        print(f'Saving VERT_combined_plot_{d:04d}.png')
-        combined_img.save(os.path.join(image_dir, f'VERT_combined_plot_{d:04d}.png'))
+        outfile = os.path.join(image_dir, f'VERT_combined_plot_{d:04d}.png')
+        print(f'Saving {outfile}')
+        combined_img.save(outfile)
 
     else:
         
@@ -102,11 +104,10 @@ for d in range(0, 366):
         combined_img.paste(logo_img, (0,0), logo_img)
     
         # Save the combined image with a new filename
-        print(f'Saving HORIZ_combined_plot_{d:04d}.png')
-        combined_img.save(os.path.join(image_dir, f'HORIZ_combined_plot_{d:04d}.png'))
+        outfile = os.path.join(image_dir, f'HORIZ_combined_plot_{d:04d}.png')
+        print(f'Saving {outfile}')
+        combined_img.save(outfile)
 
-    break
-        
     # Close the images to free up resources
     salinity_img.close()
     lx_img.close()

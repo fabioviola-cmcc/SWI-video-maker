@@ -27,7 +27,7 @@ import os
 
 # Directory where your merged images are located
 image_dir = sys.argv[1]
-orientation = sys.argv[2]
+orientation = int(sys.argv[2])
 fps = int(sys.argv[3])
 
 
@@ -40,10 +40,10 @@ fps = int(sys.argv[3])
 # Define the codec and create a VideoWriter object
 if orientation:
     outfile = os.path.join(image_dir, f"VERT_output_video.mp4")
-    image_files = sorted([f for f in os.listdir(image_dir) if f.startswith('VERT_combined_plot_') and f.endswith('.png')])    
+    image_files = sorted([f for f in os.listdir(image_dir) if f.startswith('VERT_combined_plot_') and f.endswith('.png')])
 else:
     outfile = os.path.join(image_dir, f"HORIZ_output_video.mp4")
-    image_files = sorted([f for f in os.listdir(image_dir) if f.startswith('HORIZ_combined_plot_') and f.endswith('.png')])    
+    image_files = sorted([f for f in os.listdir(image_dir) if f.startswith('HORIZ_combined_plot_') and f.endswith('.png')])
 
 # Read the first image to get dimensions
 first_image_path = os.path.join(image_dir, image_files[0])
