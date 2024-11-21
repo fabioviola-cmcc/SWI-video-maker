@@ -1,3 +1,11 @@
+#!/usr/bin/python3
+#
+# This script is designed to merge (either horizontally
+# or vertically a set of images. In this specific case
+# the script will merge salinity and lx plots.
+#
+
+
 ######################################################
 #
 # requirements
@@ -32,8 +40,8 @@ vertical = int(sys.argv[2]) # 0 = horizontal, 1 = vertical
 for d in range(0, 366):
 
     # build filenames
-    salinity_plot = os.path.join(image_dir, f"20241010_salinity_plot_{d:04d}.png")
-    lx_plot = os.path.join(image_dir, f"20241010_lx_plot_{d:04d}.png")
+    salinity_plot = os.path.join(image_dir, f"salinity_plot_{d:04d}.png")
+    lx_plot = os.path.join(image_dir, f"lx_plot_{d:04d}.png")
 
     # check if files exist, otherwise skip to next iteration
     if not os.path.exists(salinity_plot):
