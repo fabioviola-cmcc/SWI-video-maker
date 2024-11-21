@@ -3,7 +3,7 @@
 # This script is intended to plot the Lx for a given
 # branch. Input parameters are:
 # - the branch name
-# - the input csv file containing date,
+# - the input csv file for Lx
 # - the output directory
 
 ##################################################
