@@ -4,7 +4,7 @@
 # branch. Input parameters are:
 # - the branch name
 # - the input csv file containing date,
-
+# - the output directory
 
 ##################################################
 #
@@ -12,7 +12,7 @@
 #
 ##################################################
 
-import pdb
+import os
 import csv
 import sys
 import numpy as np
@@ -29,7 +29,8 @@ from datetime import datetime, timedelta
 # read year from command line
 branch = sys.argv[1]
 infile = sys.argv[2]
-
+outdir = sys.argv[3]
+    
 # initialise list of values
 values = []
 time_values = []
@@ -58,11 +59,28 @@ year = int(time_values[0].split("-")[0])
 ##################################################
 
 # build list of ticks
-ttt = []
-for ddd in range(0, len(time_values)+1, 15):
-    ttt.append(time_values[ddd])
+ticks = []
+ticks_indices = []
 
-# iterate over dates
+counter = 0
+for date_string in time_values:
+
+    # create a date object from the current date
+    date_object = datetime.strptime(date_string, "%Y-%m-%d")
+
+    # if day == 1 or 15, we add it to the ticks
+    if date_object.day == 15 or date_object.day == 1:
+        ticks.append(date_string)
+        ticks_indices.append(counter)
+
+    # increment counter
+    counter += 1
+
+# add the last day of the year to the ticks
+ticks.append(time_values[-1])
+ticks_indices.append(counter-1)
+
+# iterate over dates to plot images
 counter = 0
 for d in range(len(values)):
         
@@ -74,8 +92,11 @@ for d in range(len(values)):
     plt.figure(dpi=300)
     plt.plot(x, y, linewidth=0.8, antialiased=True)
     plt.ylim(0, 20)
-    plt.xticks(range(1, 366, 15), ttt, rotation='vertical', fontsize=8)
+    plt.xticks(ticks_indices, ticks, rotation='vertical', fontsize=8)
     plt.yticks(range(0, 30, 5), fontsize=8)
+
+    # set fixed limit
+    plt.xlim(1, len(time_values)+10)
     
     # add labels and title
     plt.xlabel(f"Days of the year {year}", fontsize=10, labelpad=20)
@@ -89,9 +110,10 @@ for d in range(len(values)):
         plt.axhline(y=tick, color='lightgray', linestyle='--', linewidth=0.2, zorder=0)
     
     # save the plot
-    print("Saving plot %s" % str(counter))
+    outfile = os.path.join(outdir, f"lx_plot_{counter:04d}.png")
     plt.tight_layout()
-    plt.savefig(f"lx_plot_{counter:04d}.png")
+    plt.savefig(outfile)
+    print(f"Saving {outfile}")
     
     counter += 1 
     
