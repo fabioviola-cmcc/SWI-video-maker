@@ -72,12 +72,15 @@ def plot_salinity(nc_file, csv_file, branch_name, outdir):
         # Add gridlines    
         gl = ax.gridlines(crs=ccrs.PlateCarree(), draw_labels=True,
                           linewidth=0.1, color='gray', alpha=0.5, linestyle='--')
-    
+
         # Set font size for x-tick and y-tick labels
         gl.xlabel_style = {'size': 7}
         gl.ylabel_style = {'size': 7}
-        gl.xlabels_top = False
-        gl.ylabels_right = False
+        
+        gl.top_labels = False  # Disable top latitude labels
+        gl.bottom_labels = True  # Ensure bottom latitude labels are shown
+        gl.right_labels = False  # Disable longitude labels on the right
+        gl.left_labels = True   # Enable longitude labels on the left
 
         # Plot salinity
         salinity_at_t = salinity.sel(time=t)
@@ -88,10 +91,10 @@ def plot_salinity(nc_file, csv_file, branch_name, outdir):
         cbar.set_label('Salinity (psu)', fontsize=7, labelpad=15)
         cbar.ax.tick_params(labelsize=7)  # Set colorbar tick label size
             
-        # Read data from the csv
+        # read data from the csv
         csv_line = csv_data[counter + 1]
         
-        # Add a marker for Lx
+        # add a marker for Lx
         lx_lat = csv_line[1]
         lx_lon = csv_line[2]
         ax.plot(float(lx_lon), float(lx_lat), color='red', marker='x') # , markersize=configDict["pointsSize"])
@@ -115,7 +118,7 @@ def plot_salinity(nc_file, csv_file, branch_name, outdir):
         plt.close()
 
         counter += 1
-
+        
 
 ##################################################
 #
